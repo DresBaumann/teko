@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.Math.Core", "Teko.Math.Core\Teko.Math.Core.csproj", "{E236A740-E887-4BCE-989E-A6E0063A4544}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.Math.Console", "Teko.Math.Console\Teko.Math.Console.csproj", "{ED853BC1-3F7A-41F2-9BC2-879FE4576C95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teko.Math.Tests", "Teko.Math.Tests\Teko.Math.Tests.csproj", "{31ACE798-EB47-443D-8FCB-74A78E78AD32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E236A740-E887-4BCE-989E-A6E0063A4544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E236A740-E887-4BCE-989E-A6E0063A4544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E236A740-E887-4BCE-989E-A6E0063A4544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED853BC1-3F7A-41F2-9BC2-879FE4576C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED853BC1-3F7A-41F2-9BC2-879FE4576C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED853BC1-3F7A-41F2-9BC2-879FE4576C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED853BC1-3F7A-41F2-9BC2-879FE4576C95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31ACE798-EB47-443D-8FCB-74A78E78AD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31ACE798-EB47-443D-8FCB-74A78E78AD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31ACE798-EB47-443D-8FCB-74A78E78AD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31ACE798-EB47-443D-8FCB-74A78E78AD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

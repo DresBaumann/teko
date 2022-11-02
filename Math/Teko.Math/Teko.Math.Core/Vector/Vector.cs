@@ -1,103 +1,120 @@
-﻿namespace Teko.Math.Core.Vector
+﻿using System.Globalization;
+
+namespace Teko.Math.Core.Vector
 {
 	public class Vector
 	{
-		// TO DO (Datenstruktur, welche für die Komponenten eines Vektors
-		//        benötigt wird)
-		//
+		private readonly List<double> _components;
 
-		// Erstellt ein Vektor-Objekt, welches die Dimension 'dim' hat.
-		//
-		public Vector(double dimension)
+		private readonly int _dimension;
+
+		public int Dimension => _dimension;
+
+		public Vector(int dimension)
 		{
-			// TO DO
+			if (dimension < 1)
+			{
+				throw new VectorException(VectorResources.DimensionOutOfRangeError);
+			}
+
+			_dimension = dimension;
+			_components = new List<double>(new double[dimension]);
 		}
 
-		// Setzt die i-te Komponente des Vektors auf den Wert 'v'.
-		//
-		public void Set(double i, double vector)
+		public void Set(int componentIndex, double value)
 		{
-			// TO DO
+			if (componentIndex > _dimension || componentIndex < 0)
+			{
+				throw new VectorException(VectorResources.IndexOutOfRangeError);
+			}
+
+			_components[componentIndex] = value;
 		}
 
-		// Setzt alle Komponenten des Vektors auf die Werte, welche als
-		// Parameter übergeben werden. Die Anzahl Werte von 'v' MUSS der
-		// Dimension des Vektors entsprechen.
-		//
-		public void SetAll(params double[] v)
+		public void SetAll(params double[] values)
 		{
-			// TO DO
+			if (values.Length != _dimension)
+			{
+				throw new VectorException(String.Format(CultureInfo.CurrentCulture,
+					VectorResources.InvalidAmountOfValues, _dimension, values.Length));
+			}
+
+			int index = 0;
+			foreach (var value in values)
+			{
+				_components[index] = value;
+				index++;
+			}
 		}
 
-		// Setzt alle Komponenten des Vektors auf zufällige Werte, wobei der
-		// Zufallszahlengenerator 'rnd' verwendet wird.
-		//
 		public void SetRand(Random random)
 		{
-			// TO DO
+			for (int index = 0; index < _dimension; index++)
+			{
+				_components[index] = random.NextDouble();
+			}
 		}
 
-		// Retourniert die i-te Komponente des Vektors.
-		//
-		public double Get(double i)
+		public double Get(int componentIndex)
 		{
-			// TO DO
+			if (componentIndex > _dimension || componentIndex < 0)
+			{
+				throw new VectorException(VectorResources.DimensionOutOfRangeError);
+			}
+
+			return _components[componentIndex];
 		}
 
-		// Retourniert alle Komponenten des Vektors als Array.
-		//
 		public double[] GetAll()
 		{
-			// TO DO
+			return _components.ToArray();
 		}
 
-		// Addiert den Vektor zum Vektor 'v2' und retourniert das
-		// Resultat als neues Vektor-Objekt.
-		//
-		public Vector Add(Vector v2)
+		public Vector Add(Vector vector)
 		{
-			// TO DO
+			if (_dimension != vector._dimension)
+			{
+				throw new VectorException(string.Format(CultureInfo.CurrentCulture,
+					VectorResources.DimensionMissmatchError, _dimension, vector.Dimension));
+			}
+
+			Vector result = new Vector(_dimension);
+
+			for (int index = 0; index < _dimension; index++)
+			{
+				double component = this.Get(index) + vector.Get(index);
+				result.Set(index, component);
+			}
+
+			return result;
 		}
 
-		// Addiert den Vektor zum Vektor 'v2' und legt das Resultat im
-		// Vektor 'v3' ab. 'v3' muss also auf ein initialisiertes
-		// Vektor-Objekt zeigen.
-		//
-		public void Add(Vector vector2, Vector v3)
+		public void Add(Vector vector, out Vector result)
 		{
-			// TO DO
+			result = Add(vector);
 		}
 
-		// Multipliziert den Vektor mit der Zahl 't' und retourniert das
-		// Resultat als neues Vektor-Objekt.
-		//
 		public Vector Mul(double multiplier)
 		{
-			// TO DO
+			Vector result = new Vector(_dimension);
+
+			for (int index = 0; index < _dimension; index++)
+			{
+				double component = multiplier * this.Get(index);
+				result.Set(index, component);
+			}
+
+			return result;
 		}
 
-		// Multipliziert den Vektor mit der Zahl 't' und legt das Resultat
-		// im Vektor 'v2' ab. 'v2' muss auf ein initialisiertes
-		// Vektor-Objekt zeigen.
-		//
-		public void Mul(double multiplier, Vector vector2)
+		public void Mul(double multiplier, out Vector result)
 		{
-			// TO DO
+			result = Mul(multiplier);
 		}
 
-		// Retourniert eine Zeichenkette mit der Repräsentation des Vektors.
-		// Das Resultat soll wie folgt aussehen:
-		//
-		//     [ a1, a2, a3, ... ]
-		//
-		// wobei a1, a2, a3, ... die Komponenten des Vektors sind.
-		// Beispiel:
-		//
-		//     [ 1.0, -3.65, 4.75 ]
-		//
 		public override string ToString()
 		{
-			// TO DO
+			return $"[{string.Join(", ", _components)}]";
 		}
 	}
 }
