@@ -23,7 +23,7 @@ namespace Teko.Math.Core.Vector
 
 		public void Set(int componentIndex, double value)
 		{
-			if (componentIndex > _dimension || componentIndex < 0)
+			if (componentIndex >= _dimension || componentIndex < 0)
 			{
 				throw new VectorException(VectorResources.IndexOutOfRangeError);
 			}
@@ -35,7 +35,7 @@ namespace Teko.Math.Core.Vector
 		{
 			if (values.Length != _dimension)
 			{
-				throw new VectorException(String.Format(CultureInfo.CurrentCulture,
+				throw new VectorException(string.Format(CultureInfo.CurrentCulture,
 					VectorResources.InvalidAmountOfValues, _dimension, values.Length));
 			}
 
@@ -51,15 +51,15 @@ namespace Teko.Math.Core.Vector
 		{
 			for (int index = 0; index < _dimension; index++)
 			{
-				_components[index] = random.NextDouble();
+				Set(index, random.NextDouble());
 			}
 		}
 
 		public double Get(int componentIndex)
 		{
-			if (componentIndex > _dimension || componentIndex < 0)
+			if (componentIndex >= _dimension || componentIndex < 0)
 			{
-				throw new VectorException(VectorResources.DimensionOutOfRangeError);
+				throw new VectorException(VectorResources.IndexOutOfRangeError);
 			}
 
 			return _components[componentIndex];
@@ -75,7 +75,7 @@ namespace Teko.Math.Core.Vector
 			if (_dimension != vector._dimension)
 			{
 				throw new VectorException(string.Format(CultureInfo.CurrentCulture,
-					VectorResources.DimensionMissmatchError, _dimension, vector.Dimension));
+					VectorResources.DimensionMismatchError, _dimension, vector.Dimension));
 			}
 
 			Vector result = new Vector(_dimension);
@@ -114,7 +114,7 @@ namespace Teko.Math.Core.Vector
 
 		public override string ToString()
 		{
-			return $"[{string.Join(", ", _components)}]";
+			return $"[ {string.Join(", ", _components)} ]";
 		}
 	}
 }

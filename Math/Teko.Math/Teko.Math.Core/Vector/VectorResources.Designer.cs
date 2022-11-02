@@ -22,7 +22,7 @@ namespace Teko.Math.Core.Vector {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class VectorResources {
+    public class VectorResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Teko.Math.Core.Vector {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Teko.Math.Core.Vector.VectorResources", typeof(VectorResources).Assembly);
@@ -51,7 +51,7 @@ namespace Teko.Math.Core.Vector {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,16 +63,16 @@ namespace Teko.Math.Core.Vector {
         /// <summary>
         ///   Looks up a localized string similar to In order to make operations with two or more vectors they need to have the same amount of dimensions..
         /// </summary>
-        internal static string DimensionMissmatchError {
+        public static string DimensionMismatchError {
             get {
-                return ResourceManager.GetString("DimensionMissmatchError", resourceCulture);
+                return ResourceManager.GetString("DimensionMismatchError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The Dimension is out of range make sure to use a postive number between 1 and 2&apos;147&apos;483&apos;647.
         /// </summary>
-        internal static string DimensionOutOfRangeError {
+        public static string DimensionOutOfRangeError {
             get {
                 return ResourceManager.GetString("DimensionOutOfRangeError", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Teko.Math.Core.Vector {
         /// <summary>
         ///   Looks up a localized string similar to There is no element at this index.
         /// </summary>
-        internal static string IndexOutOfRangeError {
+        public static string IndexOutOfRangeError {
             get {
                 return ResourceManager.GetString("IndexOutOfRangeError", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Teko.Math.Core.Vector {
         /// <summary>
         ///   Looks up a localized string similar to The vector has {0} components and expects {0} values but got {1} make sure to pass {0} values..
         /// </summary>
-        internal static string InvalidAmountOfValues {
+        public static string InvalidAmountOfValues {
             get {
                 return ResourceManager.GetString("InvalidAmountOfValues", resourceCulture);
             }
