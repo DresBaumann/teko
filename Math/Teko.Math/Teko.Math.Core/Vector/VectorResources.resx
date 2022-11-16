@@ -130,4 +130,8 @@
     <value>The vector has {0} components and expects {0} values but got {1} make sure to pass {0} values.</value>
     <comment>{0} = amount of values expected, {1} = amount of values received</comment>
   </data>
+  <data name="OperationNotSupportedWithCurrentDimensionError" xml:space="preserve">
+    <value>This operation requires a Vector with {0} dimensions.</value>
+    <comment>{0} = required dimensions</comment>
+  </data>
 </root>

@@ -95,5 +95,14 @@ namespace Teko.Math.Core.Vector {
                 return ResourceManager.GetString("InvalidAmountOfValues", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This operation requires a Vector with {0} dimensions..
+        /// </summary>
+        public static string OperationNotSupportedWithCurrentDimensionError {
+            get {
+                return ResourceManager.GetString("OperationNotSupportedWithCurrentDimensionError", resourceCulture);
+            }
+        }
     }
 }

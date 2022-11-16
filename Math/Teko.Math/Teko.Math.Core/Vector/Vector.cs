@@ -12,10 +12,7 @@ namespace Teko.Math.Core.Vector
 
 		public Vector(int dimension)
 		{
-			if (dimension < 1)
-			{
-				throw new VectorException(VectorResources.DimensionOutOfRangeError);
-			}
+			VectorException.ThrowIfDimensionOutOfRange(dimension);
 
 			_dimension = dimension;
 			_components = new List<double>(new double[dimension]);
@@ -23,10 +20,7 @@ namespace Teko.Math.Core.Vector
 
 		public void Set(int componentIndex, double value)
 		{
-			if (componentIndex >= _dimension || componentIndex < 0)
-			{
-				throw new VectorException(VectorResources.IndexOutOfRangeError);
-			}
+			VectorException.ThrowIfIndexOutOfRange(componentIndex, _components.Count);
 
 			_components[componentIndex] = value;
 		}
@@ -57,10 +51,7 @@ namespace Teko.Math.Core.Vector
 
 		public double Get(int componentIndex)
 		{
-			if (componentIndex >= _dimension || componentIndex < 0)
-			{
-				throw new VectorException(VectorResources.IndexOutOfRangeError);
-			}
+			VectorException.ThrowIfIndexOutOfRange(componentIndex, _dimension);
 
 			return _components[componentIndex];
 		}
@@ -72,17 +63,13 @@ namespace Teko.Math.Core.Vector
 
 		public Vector Add(Vector vector)
 		{
-			if (_dimension != vector._dimension)
-			{
-				throw new VectorException(string.Format(CultureInfo.CurrentCulture,
-					VectorResources.DimensionMismatchError, _dimension, vector.Dimension));
-			}
+			VectorException.ThrowIfDimensionMismatch(_dimension, vector.Dimension);
 
-			Vector result = new Vector(_dimension);
+			Vector result = new(_dimension);
 
 			for (int index = 0; index < _dimension; index++)
 			{
-				double component = this.Get(index) + vector.Get(index);
+				double component = Get(index) + vector.Get(index);
 				result.Set(index, component);
 			}
 
@@ -100,21 +87,65 @@ namespace Teko.Math.Core.Vector
 
 			for (int index = 0; index < _dimension; index++)
 			{
-				double component = multiplier * this.Get(index);
+				double component = multiplier * Get(index);
 				result.Set(index, component);
 			}
 
 			return result;
 		}
 
-		public void Mul(double multiplier, out Vector result)
+		public void Mul(double multiplier, ref Vector result)
 		{
 			result = Mul(multiplier);
 		}
 
+
 		public override string ToString()
 		{
 			return $"[ {string.Join(", ", _components)} ]";
+		}
+
+		public double Abs()
+		{
+			IEnumerable<double> cubedComponents = _components.Select(component => component * component);
+			return System.Math.Sqrt(cubedComponents.Sum());
+		}
+
+		public double Dot(Vector vector)
+		{
+			VectorException.ThrowIfDimensionMismatch(_dimension, vector.Dimension);
+
+			double scalarProduct = 0;
+			for (int index = 0; index < _dimension; index++)
+			{
+				scalarProduct += Get(index) * vector.Get(index);
+			}
+
+			return scalarProduct;
+		}
+
+		public Vector Cross(Vector vector)
+		{
+			VectorException.ThrowIfOperationNotSupportedWithCurrentDimension(
+				VectorConstants.RequiredDimensionForCrossProductOperation, new[] { _dimension, vector.Dimension });
+
+			double component1 = (Get(1) * vector.Get(2)) - (Get(2) * vector.Get(1));
+			double component2 = (Get(2) * vector.Get(0)) - (Get(0) * vector.Get(2));
+			double component3 = (Get(0) * vector.Get(1)) - (Get(1) * vector.Get(0));
+
+
+			Vector crossProduct = new Vector(3);
+			crossProduct.SetAll(component1, component2, component3);
+
+			return crossProduct;
+		}
+
+		public void Cross(Vector vector, ref Vector result)
+		{
+			VectorException.ThrowIfOperationNotSupportedWithCurrentDimension(
+				VectorConstants.RequiredDimensionForCrossProductOperation, result.Dimension);
+
+			result = Cross(vector);
 		}
 	}
 }

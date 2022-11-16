@@ -27,6 +27,7 @@ namespace Teko.Math.Tests.Vectors
 			Assert.Equal(VectorResources.DimensionOutOfRangeError, exception.Message);
 		}
 
+
 		[Fact]
 		public void Set_NegativeIndex_ThrowsException()
 		{
@@ -208,6 +209,81 @@ namespace Teko.Math.Tests.Vectors
 
 			string expected = "[ 6, 6, 11 ]";
 			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void Abs_ReturnsCorrectLength()
+		{
+			double[] values = { 1, 2, 3 };
+			Vector vector = new Vector(3);
+			vector.SetAll(values);
+
+			double result = vector.Abs();
+			double expected = System.Math.Sqrt(14);
+
+			Assert.Equal(expected, result);
+		}
+
+		[Fact]
+		public void Dot_CorrectVectors_ReturnsCorrectScalarProduct()
+		{
+			Vector vector = new Vector(3);
+			double[] vectorComponents = { 2, -4, 0 };
+			vector.SetAll(vectorComponents);
+
+			Vector otherVector = new Vector(3);
+			double[] otherVectorComponents = { 3, 2, 5 };
+			otherVector.SetAll(otherVectorComponents);
+
+			double result = vector.Dot(otherVector);
+
+			Assert.Equal(-2, result);
+		}
+
+		[Fact]
+		public void Dot_DimensionMismatch_ThrowsException()
+		{
+			Vector vector1 = new Vector(3);
+			Vector vector2 = new Vector(4);
+
+
+			var exception = Record.Exception(() => vector1.Dot(vector2));
+
+			Assert.IsType<VectorException>(exception);
+			Assert.Equal(VectorResources.DimensionMismatchError, exception.Message);
+		}
+
+		[Fact]
+		public void Cross_CorrectVectors_ReturnsCorrectCrossProduct()
+		{
+			Vector vector = new Vector(3);
+			double[] vectorComponents = { 1, 2, 1 };
+			vector.SetAll(vectorComponents);
+
+			Vector otherVector = new Vector(3);
+			double[] otherVectorComponents = { 2, 4, 1 };
+			otherVector.SetAll(otherVectorComponents);
+
+			Vector result = vector.Cross(otherVector);
+
+			Vector expected = new Vector(3);
+			double[] expectedComponents = { -2, 1, 0 };
+			expected.SetAll(expectedComponents);
+			Assert.Equal(expected.GetAll(), result.GetAll());
+		}
+
+		[Fact]
+		public void Cross_DimensionNotSupported_ThrowsException()
+		{
+			Vector vector1 = new Vector(2);
+			Vector vector2 = new Vector(3);
+
+			var exception = Record.Exception(() => vector1.Cross(vector2));
+
+			Assert.IsType<VectorException>(exception);
+			Assert.Equal(string.Format(CultureInfo.CurrentCulture,
+				VectorResources.OperationNotSupportedWithCurrentDimensionError,
+				VectorConstants.RequiredDimensionForCrossProductOperation), exception.Message);
 		}
 	}
 }
